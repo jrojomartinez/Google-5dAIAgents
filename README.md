@@ -31,7 +31,7 @@ This project demonstrates how to build AI agents with enhanced capabilities thro
 
 1. **Clone this repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/jrojomartinez/Google-5dAIAgents.git
    cd Google-5dAIAgents
    ```
 
