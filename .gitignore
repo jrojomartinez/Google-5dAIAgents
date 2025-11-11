@@ -1,0 +1,13 @@
+.DS_Store
+.env
+APIKeys.py
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# Claude
+CLAUDE.md
