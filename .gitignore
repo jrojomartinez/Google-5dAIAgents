@@ -1,13 +1,26 @@
-.DS_Store
+# Exclude all .env files at root and in subdirectories
 .env
+**/.env
+# Exclude all APIKeys.py files at root and in subdirectories
 APIKeys.py
+**/APIKeys.py
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
+**/__pycache__/
 *.py[cod]
+**/*.py[cod]
 *$py.class
+**/*$py.class
 
+### ADK ###
+# Evaluation sets (generated files)
+# *.evalset.json
 
 # Claude
 CLAUDE.md
+
+# Mac files
+.DS_Store
+

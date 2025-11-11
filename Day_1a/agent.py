@@ -14,10 +14,10 @@ print("✅ ADK components imported successfully.")
 
 
 # Import Google API key:
-import APIKeys
 try:
-	# GOOGLE_API_KEY = APIKeys.GOOGLE_API_KEY
-	# os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+	#import APIKeys
+	#GOOGLE_API_KEY = APIKeys.GOOGLE_API_KEY
+	#os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
 	load_dotenv(override=True)
 	GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 	print("✅ Gemini API key setup complete.")
@@ -48,11 +48,12 @@ root_agent = Agent(
 print("✅ Root Agent defined.")
 
 
-async def main():
-    # Run the agent (debug for prototyping, no need to create and maintain sessions).
-    runner = InMemoryRunner(agent=root_agent)
-    print("✅ Runner created.")
+# Run the agent (debug for prototyping, no need to create and maintain sessions).
+runner = InMemoryRunner(agent=root_agent)
+print("✅ Runner created.")
 
+
+async def main():
     try:
         # Queries to the Agent:
         response = await runner.run_debug(
@@ -67,7 +68,6 @@ async def main():
         await runner.close()
         # Give async cleanup tasks time to complete
         await asyncio.sleep(1)
-
 
 
 if __name__ == "__main__":

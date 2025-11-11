@@ -1,0 +1,38 @@
+{
+  "eval_set_id": "evalset855d3b",
+  "name": "evalset855d3b",
+  "eval_cases": [
+    {
+      "eval_id": "case305e02",
+      "conversation": [
+        {
+          "invocation_id": "e-1a29a75a-211b-4fc2-a219-481eea820918",
+          "user_content": {
+            "parts": [
+              {
+                "text": "What, where and when is the next football match for the next worldcup?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The next FIFA World Cup will take place from June 11 to July 19, 2026. The tournament will be jointly hosted by three North American countries: the United States, Canada, and Mexico, across 16 cities. The opening match is scheduled for June 11, 2026, and the final will be held on July 19, 2026, at MetLife Stadium in East Rutherford, New Jersey. The specific matchups and times for individual games will be determined by a draw scheduled for late 2025."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1762892400.566195
+        }
+      ],
+      "session_input": {
+        "app_name": "Day_1a",
+        "user_id": "user"
+      },
+      "creation_timestamp": 1762892498.406237
+    }
+  ],
+  "creation_timestamp": 1762892491.534931
+}
