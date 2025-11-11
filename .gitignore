@@ -21,6 +21,7 @@ __pycache__/
 # Claude
 CLAUDE.md
 .claude/
+git.cheatsheet
 
 # Mac files
 .DS_Store
