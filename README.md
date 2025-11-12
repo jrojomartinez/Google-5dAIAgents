@@ -53,19 +53,28 @@ This project demonstrates how to build AI agents with enhanced capabilities thro
 
 ```
 Google-5dAIAgents/
-├── .env                    # Environment variables (not tracked in git)
-├── .gitignore              # Git ignore rules
-├── README.md               # This file
-├── CLAUDE.md               # Claude Code development guidance (not tracked in git)
-├── Day_1a/                 # Day 1a implementation
-│   ├── agent.py            # Main agent with Google Search integration
-│   ├── .gitignore          # Local ignore rules
-│   ├── __init__.py         # Python package init
-│   └── evalset*.json       # Evaluation sets
-└── Day_1b/                 # Day 1b implementation
-    ├── agent.py            # Simple agent template
-    ├── .env                # Local environment variables (not tracked)
-    └── __init__.py         # Python package init
+├── .env                                # Environment variables (not tracked in git)
+├── .gitignore                          # Git ignore rules
+├── README.md                           # This file
+├── CLAUDE.md                           # Claude Code development guidance (not tracked in git)
+├── agent_template.py                   # Template for creating new agents
+├── Day_1a/                             # Day 1a: Basic Agent with Google Search
+│   ├── agent.py                        # Main agent with Google Search integration
+│   ├── .gitignore                      # Local ignore rules
+│   ├── __init__.py                     # Python package init
+│   └── evalset*.json                   # Evaluation sets
+├── Day_1b_Section2_orchestrator/       # Orchestrator pattern (manual coordination)
+│   ├── agent.py                        # Research + Summarizer with root coordinator
+│   └── __init__.py                     # Python package init
+├── Day_1b_Section3_sequential/         # Sequential agent pattern (pipeline)
+│   ├── agent.py                        # Blog pipeline: Outline -> Write -> Edit
+│   └── __init__.py                     # Python package init
+├── Day_1b_Section4_parallel/           # Parallel agent pattern (concurrent execution)
+│   ├── agent.py                        # Multi-domain research with aggregation
+│   └── __init__.py                     # Python package init
+└── Day_1b_Section5_loop/               # Loop agent pattern (iterative refinement)
+    ├── agent.py                        # Story writing with critic feedback loop
+    └── __init__.py                     # Python package init
 ```
 
 ## Running Agents
@@ -135,18 +144,128 @@ python3 Day_1a/agent.py
 adk run Day_1a
 ```
 
-### Day 1b: Coming Soon
-
-**Location:** `Day_1b/`
+### Day 1b: Multi Agent Systems (MAS)
 
 **Description:**
-A simple agent template for additional Day 1 exercises.
+Exploration of multi-agent system architectures using Google ADK. Demonstrates four key patterns for orchestrating multiple agents to work together: Orchestrator, Sequential, Parallel, and Loop patterns. Each pattern addresses different coordination needs and workflow requirements.
+
+#### Section 2: Orchestrator Pattern
+
+**Location:** `Day_1b_Section2_orchestrator/`
+
+**Description:**
+Implements a manual orchestration pattern where a root coordinator agent explicitly calls sub-agents as tools. The coordinator maintains full control over when and how each agent is invoked.
+
+**Architecture:**
+- **ResearchAgent**: Specialized agent with `google_search` tool to find and present research findings
+- **SummarizerAgent**: Takes research findings and creates a concise bulleted summary
+- **Root Coordinator**: Orchestrates the workflow by wrapping sub-agents in `AgentTool` and calling them sequentially based on its instructions
+
+**Key Concepts:**
+- Manual workflow orchestration
+- Sub-agents wrapped as tools using `AgentTool`
+- State management with `output_key` for passing data between agents
+- Explicit control flow defined in coordinator's instructions
+
+**Example Query:**
+"What are the latest advancements in quantum computing and what do they mean for AI?"
 
 **Run:**
 ```bash
-python3 Day_1b/agent.py
+python3 Day_1b_Section2_orchestrator/agent.py
 # or
-adk run Day_1b
+adk run Day_1b_Section2_orchestrator
+```
+
+#### Section 3: Sequential Agent Pattern
+
+**Location:** `Day_1b_Section3_sequential/`
+
+**Description:**
+Uses `SequentialAgent` to create an automated pipeline where agents execute in a fixed order. Each agent's output automatically becomes available to the next agent in the sequence.
+
+**Architecture:**
+- **OutlineAgent**: Creates a structured blog post outline with headline, introduction, sections, and conclusion
+- **WriterAgent**: Writes a 200-300 word blog post following the outline from the previous agent
+- **EditorAgent**: Polishes the draft by fixing grammar, improving flow, and enhancing clarity
+- **BlogPipeline**: `SequentialAgent` that automatically runs all three agents in order
+
+**Key Concepts:**
+- Automatic sequential execution
+- State variables (`{blog_outline}`, `{blog_draft}`) passed between agents
+- Pipeline pattern for multi-stage processing
+- No manual orchestration needed
+
+**Example Query:**
+"Write a blog post about the benefits of multi-agent systems for software developers"
+
+**Run:**
+```bash
+python3 Day_1b_Section3_sequential/agent.py
+# or
+adk run Day_1b_Section3_sequential
+```
+
+#### Section 4: Parallel Agent Pattern
+
+**Location:** `Day_1b_Section4_parallel/`
+
+**Description:**
+Combines `ParallelAgent` and `SequentialAgent` to run multiple agents concurrently, then aggregate their results. Ideal for independent tasks that can be executed simultaneously to save time.
+
+**Architecture:**
+- **TechResearcher**: Researches latest AI/ML trends (runs in parallel)
+- **HealthResearcher**: Researches medical breakthroughs (runs in parallel)
+- **FinanceResearcher**: Researches fintech innovations (runs in parallel)
+- **ParallelResearchTeam**: `ParallelAgent` that executes all three researchers simultaneously
+- **AggregatorAgent**: Synthesizes findings from all three research streams into an executive summary
+- **Root Agent**: `SequentialAgent` that runs parallel team first, then aggregator
+
+**Key Concepts:**
+- Concurrent execution with `ParallelAgent`
+- Multiple output keys (`tech_research`, `health_research`, `finance_research`)
+- Result aggregation from parallel streams
+- Nested agent patterns (Parallel within Sequential)
+
+**Example Query:**
+"Run the daily executive briefing on Tech, Health, and Finance"
+
+**Run:**
+```bash
+python3 Day_1b_Section4_parallel/agent.py
+# or
+adk run Day_1b_Section4_parallel
+```
+
+#### Section 5: Loop Agent Pattern
+
+**Location:** `Day_1b_Section5_loop/`
+
+**Description:**
+Implements an iterative refinement loop using `LoopAgent`. Agents repeatedly execute until a condition is met or maximum iterations are reached. Demonstrates human-in-the-loop style workflows where outputs are refined through multiple iterations.
+
+**Architecture:**
+- **InitialWriterAgent**: Creates the first draft of a short story (runs once)
+- **CriticAgent**: Reviews the story and provides feedback or approval
+- **RefinerAgent**: Rewrites the story based on feedback OR calls `exit_loop()` function to break the loop
+- **StoryRefinementLoop**: `LoopAgent` containing Critic and Refiner with max 2 iterations
+- **Root Agent**: `SequentialAgent` that runs Initial Writer once, then enters the refinement loop
+
+**Key Concepts:**
+- Iterative refinement with `LoopAgent`
+- Loop exit control with `FunctionTool(exit_loop)`
+- State mutation (RefinerAgent overwrites `current_story`)
+- Max iterations safety limit to prevent infinite loops
+- Conditional workflow based on agent output
+
+**Example Query:**
+"Write a short story about a lighthouse keeper who discovers a mysterious, glowing map"
+
+**Run:**
+```bash
+python3 Day_1b_Section5_loop/agent.py
+# or
+adk run Day_1b_Section5_loop
 ```
 
 ## Security Note
