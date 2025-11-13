@@ -144,6 +144,27 @@ This white paper introduces AI agents as autonomous systems that think, act, and
 - **Learning and Evolution**: Agents can adapt through enhanced context engineering, tool optimization, and human feedback loops.
 - **Advanced Examples**: Google Co-Scientist (research collaboration) and AlphaEvolve (algorithm optimization).
 
+### Day 2: Agent Tools & Interoperability with Model Context Protocol (MCP)
+
+📄 **[View White Paper](White_Papers/Day%202%20-%20Agent%20Tools%20%26%20Interoperability%20with%20Model%20Context%20Protocol%20(MCP).pdf)**
+
+**Summary:**
+This white paper focuses on Agent Tools—the mechanism that allows Language Models to interact with the external world beyond their training data. It covers three main areas: (1) best practices for tool design, emphasizing that tools should be task-oriented, well-documented, and produce concise outputs; (2) the Model Context Protocol (MCP), an open standard that solves the N×M integration problem by providing a unified interface between AI models and external services; and (3) critical security challenges that arise when deploying MCP in enterprise environments.
+
+**Key Points:**
+- **Agent Tools Fundamentals**: Tools allow LLMs to retrieve data (know something) or perform actions (do something). Three types exist: Function Tools (developer-defined), Built-in Tools (model service provided, like Google Search), and Agent Tools (specialized agents invoked as tools).
+- **Tool Design Best Practices**: Tools must encapsulate granular **tasks** (not just mirror APIs), use clear/descriptive names, provide comprehensive parameter documentation, design for concise output to avoid context window bloat, and include instructive error messages that guide the LLM on resolution.
+- **Model Context Protocol (MCP)**: Open standard introduced in 2024 to solve the N×M integration explosion problem. Uses client-server architecture (Host, Client, Server) with JSON-RPC 2.0 communication over stdio or Streamable HTTP.
+- **MCP Core Primitives** (Tools and Resources define what the server *offers*, while Sampling and Elicitation define what the server can *request* from the client):
+  - **Tools** (most widely adopted): Standardized JSON schema for describing available functions—servers advertise their capabilities (e.g., `get_current_weather`) with parameter details and return types
+  - **Resources**: Server-side contextual data provision—servers expose background information like file contents, configurations, or database schemas that agents can read for context
+  - **Sampling**: Server can request LLM completions from client (reversed control flow)—the server asks the client's LLM to generate content, flipping the typical request direction
+  - **Elicitation**: Server can request additional user input via client UI—the server asks the client to prompt the user for more information (e.g., confirmation before a transaction)
+- **Enterprise Security Challenges**: MCP introduces new risks including Tool Shadowing (malicious tool descriptions hijacking agent decisions), Dynamic Capability Injection (unexpected tool set changes), and Confused Deputy Problem (unprivileged users tricking agents into unauthorized actions via privileged servers).
+- **Security Mitigations**: Multi-layered defense required: explicit allowlists of approved tools/servers, API Gateways (like Apigee) for centralized policy enforcement, input/output sanitization (e.g., Model Armor), and scoped credentials following least privilege principles.
+- **Performance Considerations**: MCP suffers from Context Window Bloat as all tool definitions load into prompts, increasing cost/latency. Dynamic tool retrieval (RAG-based tool discovery) proposed as future mitigation.
+- **Enterprise Readiness Gaps**: Base MCP protocol lacks robust authentication/authorization standards, clear identity management, and native observability primitives (logging, tracing, metrics). MCP must therefore be wrapped with existing enterprise authentication and security protocols, as the protocol itself focuses solely on the Agent-Tools communication layer.
+
 ## Day Implementations
 
 ### Day 1a: Basic Agent with Google Search
