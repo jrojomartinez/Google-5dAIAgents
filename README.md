@@ -188,6 +188,29 @@ Context Engineering is the discipline that converts stateless LLM models into st
 - **Memory Generation: Blocking vs Background**: Memory generation is computationally expensive. Blocking (synchronous) operations force users to wait (discouraged for production). Background (asynchronous) operations send the response first while memory generation runs in parallel—essential for fast, responsive agents.
 - **Memory Security**: Memory poisoning (malicious users corrupting persistent knowledge) requires validation tools like Model Armor for sanitization before committing to long-term storage.
 
+### Day 4: Agent Quality
+
+📄 **[View White Paper](White_Papers/Day%204%20-%20Agent%20Quality.pdf)**
+
+**Summary:**
+Agent Quality is a continuous discipline that must be integrated from the design phase to build trustworthy AI agents in production. Traditional Quality Assurance fails for non-deterministic agents because failures manifest as subtle degradations (hallucination, bias, concept drift) rather than explicit crashes. The fundamental evaluation unit is the entire system trajectory (Thought → Action → Observation), not just model output. This whitepaper establishes a holistic evaluation framework built on four pillars—Effectiveness (goal achievement), Efficiency (cost and latency), Robustness (handling adversity), and Safety & Alignment (trustworthiness). The foundation is Observability, which provides visibility into the agent's "thought process" through Logs (event diary), Traces (causal narrative), and Metrics (aggregated health scores). Evaluation follows an "Outside-In" hierarchy, starting with Black Box (end-to-end task completion) before Glass Box (full reasoning analysis), judged through a hybrid system of LLM-as-a-Judge automation and Human-in-the-Loop expertise. These practices form the Agent Quality Flywheel, where observed data fuels continuous evaluation, converting every failure into a permanent regression test.
+
+**Key Points:**
+- **Four Pillars of Agent Quality**:
+  - Effectiveness: black-box measure of successful goal achievement.
+  - Efficiency: resources consumed (tokens/cost, latency, trajectory complexity).
+  - Robustness: handling real-world adversity (exceptions, ambiguous prompts, API timeouts, retries).
+  - Safety & Alignment: operating within ethical boundaries (security against prompt injection, data leakage).
+- **Observability Foundation**: Visibility into the agent's "thought process" through three pillars:
+  - Logs: timestamped structured entries of events, reasoning steps, tool calls (tells what happened).
+  - Traces: narrative thread connecting logs to reveal causal relationships (explains why failures occurred, uses OpenTelemetry).
+  - Metrics: quantitative aggregated scores like P99 Latency, Tokens per Task, Factual Correctness.
+- **Outside-In Evaluation Hierarchy**: Sampling strategies avoid system overload by logging 100% of failures in Black Box evaluation (which triggers Glass Box analysis), while only sampling a few successful cases.
+  - End-to-End (Black Box): assesses final output quality and task success against business KPIs.
+  - Trajectory (Glass Box): diagnoses failures by analyzing execution path including LLM planning, tool selection/parameterization, and response interpretation.
+- **Evaluation Judges**: LLM-as-a-Judge (powerful model scoring against rubric, uses pairwise comparison for reliable improvement measurement at scale), Agent-as-a-Judge (specialized Critic Agent evaluating full execution trace for plan quality and tool use), and Human-in-the-Loop (HITL—captures qualitative signals, judges nuance, provides domain expertise, creates "Golden Set" evaluation cases).
+- **Agent Quality Flywheel**: Self-reinforcing system for continuous improvement where operational data is gathered (Observability), fuels evaluation (LLM/Human Judges), and feedback is converted into permanent regression tests. Core principle: design agents to be "evaluatable-by-design," programmed to emit data for judgment from the start.
+
 ## Day Implementations
 
 ### Day 1a: Basic Agent with Google Search
