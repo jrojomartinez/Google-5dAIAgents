@@ -142,7 +142,7 @@ This white paper introduces AI agents as autonomous systems that think, act, and
 - **Multi-Agent Design Patterns**: Coordinator, Sequential, Iterative Refinement, and Human-in-the-Loop patterns for complex workflows.
 - **Interoperability Standards**: Agent2Agent (A2A) protocol, Model Context Protocol (MCP), and emerging payment protocols for the agentic economy.
 - **Learning and Evolution**: Agents can adapt through enhanced context engineering, tool optimization, and human feedback loops.
-- **Advanced Examples**: Google Co-Scientist (research collaboration) and AlphaEvolve (algorithm optimization) demonstrate sophisticated multi-agent systems.
+- **Advanced Examples**: Google Co-Scientist (research collaboration) and AlphaEvolve (algorithm optimization).
 
 ## Day Implementations
 
