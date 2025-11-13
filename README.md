@@ -58,6 +58,11 @@ Google-5dAIAgents/
 ├── README.md                           # This file
 ├── CLAUDE.md                           # Claude Code development guidance (not tracked in git)
 ├── agent_template.py                   # Template for creating new agents
+├── White_Papers/                       # Course white papers
+│   ├── Day 1 - Introduction to Agents.pdf
+│   ├── Day 2 - Agent Tools & Interoperability with Model Context Protocol (MCP).pdf
+│   ├── Day 3 - Context Engineering: Sessions & Memory.pdf
+│   └── Day 4 - Agent Quality.pdf
 ├── Day_1a/                             # Day 1a: Basic Agent with Google Search
 │   ├── agent.py                        # Main agent with Google Search integration
 │   ├── .gitignore                      # Local ignore rules
@@ -111,6 +116,33 @@ The Web UI provides:
 - Real-time monitoring and logging
 - Evaluation creation and management
 - Session tracking and debugging
+
+## White Papers
+
+Each day of the course includes a comprehensive white paper covering theoretical foundations and best practices. These papers provide deep dives into agent architecture, design patterns, and implementation strategies.
+
+### Day 1: Introduction to Agents
+
+📄 **[View White Paper](White_Papers/Day%201%20-%20Introduction%20to%20Agents.pdf)**
+
+**Summary:**
+This white paper introduces AI agents as autonomous systems that think, act, and observe to accomplish goals (as the evolution from passive generative AI). It provides an architectural framework for building production-grade agents, covering core components (Model, Tools, Orchestration), a 5-level capability taxonomy, and practical guidance on deployment, security, and operations.
+
+**Key Points:**
+- **Core Architecture**: Agents consist of three essential components - the Model (brain for reasoning), Tools (hands for action), and Orchestration Layer (nervous system for coordination).
+- **5-Step Problem-Solving Process**: Get the Mission → Scan the Scene → Think It Through → Take Action → Observe and Iterate.
+- **Taxonomy of Agentic Systems**: 5 levels of capability progression.
+  - Level 0: Core Reasoning System (LM without tools, relies on training data only).
+  - Level 1: Connected Problem-Solver (adds external tools for real-time data and actions).
+  - Level 2: Strategic Problem-Solver (context engineering and multi-step planning).
+  - Level 3: Collaborative Multi-Agent System (team of specialized agents working together).
+  - Level 4: Self-Evolving System (dynamically creates new tools/agents to fill capability gaps).
+- **Agent Ops Discipline**: New operational paradigm for measuring, debugging, and deploying agents using metrics-driven development, LM judges, and OpenTelemetry traces.
+- **Production Considerations**: Covers deployment strategies, security (identity management, policies, guardrails), and scaling from single agents to enterprise fleets.
+- **Multi-Agent Design Patterns**: Coordinator, Sequential, Iterative Refinement, and Human-in-the-Loop patterns for complex workflows.
+- **Interoperability Standards**: Agent2Agent (A2A) protocol, Model Context Protocol (MCP), and emerging payment protocols for the agentic economy.
+- **Learning and Evolution**: Agents can adapt through enhanced context engineering, tool optimization, and human feedback loops.
+- **Advanced Examples**: Google Co-Scientist (research collaboration) and AlphaEvolve (algorithm optimization) demonstrate sophisticated multi-agent systems.
 
 ## Day Implementations
 
