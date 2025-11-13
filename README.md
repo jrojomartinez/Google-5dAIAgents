@@ -165,6 +165,29 @@ This white paper focuses on Agent Tools—the mechanism that allows Language Mod
 - **Performance Considerations**: MCP suffers from Context Window Bloat as all tool definitions load into prompts, increasing cost/latency. Dynamic tool retrieval (RAG-based tool discovery) proposed as future mitigation.
 - **Enterprise Readiness Gaps**: Base MCP protocol lacks robust authentication/authorization standards, clear identity management, and native observability primitives (logging, tracing, metrics). MCP must therefore be wrapped with existing enterprise authentication and security protocols, as the protocol itself focuses solely on the Agent-Tools communication layer.
 
+### Day 3: Context Engineering: Sessions & Memory
+
+📄 **[View White Paper](White_Papers/Day%203%20-%20Context%20Engineering%3A%20Sessions%20%26%20Memory.pdf)**
+
+**Summary:**
+Context Engineering is the discipline that converts stateless LLM models into stateful, intelligent AI agents. This is achieved through the continuous management of both the information available and the information provided to the LLM. Context Engineering is essential for avoiding "context rot"—when the context window grows too large, the LLM loses focus on critical information, leading to rambling, confused responses, and degraded performance. By dynamically managing what information is provided, Context Engineering ensures responses remain focused, relevant, and high-quality. It focuses on two core architectural components: (1) Sessions, which serve as the "short-term memory" or temporary "workbench" for a single conversation, holding dialogue history and working state while managing context window bloat through compaction strategies; and (2) Memory, the long-term persistence mechanism that stores extracted, curated knowledge across sessions to personalize future interactions and make the agent an expert on the user.
+
+**Key Points:**
+- **Context Engineering (CE)**: Dynamic management of the LLM's context window to provide the most relevant information. Unlike prompt engineering (static instructions), CE constructs state-aware prompts from user, history, and external data. As context grows, cost, latency, and context rot degrade performance.
+- **Context Payload Components**: Includes guidance (System Instructions, Tool Definitions, Few-Shot Examples), evidential data (Memory, RAG, Tool Outputs), and immediate conversation (History, Scratchpad, User Prompt).
+- **Sessions**: Container for a single conversation—the agent's temporary "workbench". Contains Events (chronological log of inputs, responses, tool calls/outputs) and State (scratchpad for temporary data). Production requires persistent storage with strict isolation and PII redaction.
+- **Session Compaction Strategies**: Token-Based Truncation (cutting old messages beyond limit) and Recursive Summarization (replacing older conversation with AI-generated summaries persisted in memory).
+- **Multi-Agent Sessions**: Managed via Shared, Unified History (all agents write to one log) or Separate, Individual Histories (agents communicate via explicit messages through Agent-as-a-Tool or A2A).
+- **Memory vs. RAG**: RAG handles static, shared factual knowledge ("research librarian"), while Memory handles dynamic, user-specific context ("personal assistant"). Memory makes the agent an expert on the user.
+- **Memory Types**: Declarative Memory ("knowing what"—facts, preferences) and Procedural Memory ("knowing how"—skills, workflows like tool call sequences).
+- **Memory Organization**: Collections (self-contained natural language memories) or Structured User Profile (continuously updated core facts). Storage uses Vector Databases (semantic retrieval) and/or Knowledge Graphs (relational queries).
+- **Memory Generation Pipeline**: LLM-driven ETL process with Extraction (filtering signal from noise), Transformation (Consolidation—resolving conflicts, merging duplicates, pruning stale data), and Load (storing in database).
+- **Memory Retrieval: Proactive vs Reactive**: Proactive Retrieval automatically fetches memories at every turn (always-on, introduces latency but cacheable). Reactive Retrieval (Memory-as-a-Tool) exposes memory as a callable function, letting the agent decide when to retrieve context—more sophisticated and cost-efficient.
+- **Memory Trust and Provenance**: Provenance tracks a memory's origin and history to establish trustworthiness. Source type (Bootstrapped Data, User Input, Tool Output) determines trust level. Confidence scores injected into prompts let the LLM assess reliability. Confidence increases through corroboration and decreases over time.
+- **Memory Retrieval Dimensions**: Advanced memory systems use blended scoring across three dimensions: (1) Relevance (semantic similarity to current context), (2) Recency (how recently created/updated, with decay), and (3) Importance (overall significance, defined during generation). Relying solely on semantic similarity is a common pitfall.
+- **Memory Generation: Blocking vs Background**: Memory generation is computationally expensive. Blocking (synchronous) operations force users to wait (discouraged for production). Background (asynchronous) operations send the response first while memory generation runs in parallel—essential for fast, responsive agents.
+- **Memory Security**: Memory poisoning (malicious users corrupting persistent knowledge) requires validation tools like Model Armor for sanitization before committing to long-term storage.
+
 ## Day Implementations
 
 ### Day 1a: Basic Agent with Google Search
