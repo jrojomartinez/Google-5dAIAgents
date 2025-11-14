@@ -218,6 +218,34 @@ Agent Quality is a continuous discipline that must be integrated from the design
 - **Evaluation Judges**: LLM-as-a-Judge (powerful model scoring against rubric, uses pairwise comparison for reliable improvement measurement at scale), Agent-as-a-Judge (specialized Critic Agent evaluating full execution trace for plan quality and tool use), and Human-in-the-Loop (HITL—captures qualitative signals, judges nuance, provides domain expertise, creates "Golden Set" evaluation cases).
 - **Agent Quality Flywheel**: Self-reinforcing system for continuous improvement where operational data is gathered (Observability), fuels evaluation (LLM/Human Judges), and feedback is converted into permanent regression tests. Core principle: design agents to be "evaluatable-by-design," programmed to emit data for judgment from the start.
 
+### Day 5: Prototype to Production
+
+📄 **[View White Paper](White_Papers/Day%205%20-%20Prototype%20to%20Production.pdf)**
+
+**Summary:**
+This white paper tackles the "last mile" production gap—moving agent prototypes into trustworthy, enterprise-grade systems. It introduces AgentOps, a new operational discipline extending DevOps and MLOps for non-deterministic, stateful, autonomous agents. Production relies on three pillars: Automated Evaluation, Automated Deployment (CI/CD), and Comprehensive Observability. Pre-production uses Evaluation-Gated Deployment (automated quality gates block unvalidated versions). In production, a continuous loop (Observe → Act → Evolve) identifies emergent behavior, enables real-time intervention, and converts failures into permanent test cases. Scaling to enterprise fleets requires the Agent2Agent (A2A) protocol for complex, stateful collaboration between agents.
+
+**Key Points:**
+- **AgentOps Discipline**: Operational paradigm evolved from DevOps/MLOps for agentic system challenges: dynamic tool orchestration (on-the-fly trajectory assembly), scalable state management (secure session/memory persistence), unpredictable cost/latency. Prototypes take minutes. Production takes 80% of total effort.
+- **People and Process**: Production requires coordinated teams. Traditional MLOps needs: Cloud Platform (infrastructure, security), Data Engineering (pipelines, quality), Data Science/MLOps (training, automation), ML Governance (oversight, compliance). GenAI adds: Prompt Engineers (instructions, expected outputs, domain expertise), AI Engineers (production scaling, evaluation, guardrails, RAG/tools). Small companies have generalists. Mature organizations have specialists. Coordination is essential.
+- **Evaluation-Gated Deployment**: No agent reaches users without passing quality and safety checks. Mature teams integrate evaluation into CI/CD, automatically blocking deployment when metrics (tool success rate, helpfulness) fall below thresholds.
+- **CI/CD Pipeline Structure**: Three-phase funnel catches errors early.
+  - Pre-Merge Integration (CI): Fast checks (unit tests, linting, agent evaluation) for immediate feedback.
+  - Post-Merge Validation in Staging (CD): Comprehensive tests in staging (load testing, internal dogfooding).
+  - Gated Production Deployment: Human sign-off (HITL) required before promotion.
+  - Infrastructure as Code (IaC): Terraform for repeatable environments. Secret Manager for runtime secrets.
+- **Safe Rollout Strategies**: Gradual deployment minimizes risk: Canary (small user percentage), Blue-Green (instant environment switching), A/B Testing, Feature Flags. Requires rigorous versioning of all artifacts (prompts, code, models, tools, datasets) for instant rollback.
+- **Security Defense Layers**: Three-layer defense against agent risks (Prompt Injection, Data Leakage, Memory Poisoning).
+  - Policy Definition: System Instructions as core "constitution".
+  - Enforcement (Guardrails): Input Filtering (blocks malicious prompts). Output Filtering (checks harmful content/PII).
+  - Continuous Assurance: Systematic Red Teaming and RAI testing.
+- **Operational Loop: Observe, Act, Evolve**:
+  - Observe: Logs (event diary), Traces (causal narrative), Metrics (performance/cost scores).
+  - Act: Two categories. System Health: horizontal scaling, async processing, auto-retries, cost/speed/reliability balance. Risk Management: contain (circuit breakers disable tools), triage (HITL investigation), resolve (deploy patch via CI/CD).
+  - Evolve: Convert production insights into improvements. Production failures become permanent test cases.
+- **Agent2Agent (A2A) Protocol**: Open standard for agent collaboration. JSON Agent Cards advertise capabilities, security, endpoints for discovery. Higher abstraction than MCP. A2A handles complex agent conversations. MCP handles structured tool operations.
+- **Interoperability at Scale**: Central Tool Registries (MCP) and Agent Registries (A2A) enable discovery, governance, auditability. Build when managing thousands of tools/agents across teams, not by default. Benefits: developers avoid duplicates, security teams audit access, product owners understand capabilities.
+
 ## Day Implementations
 
 ### Day 1a: Basic Agent with Google Search
