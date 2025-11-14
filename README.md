@@ -209,7 +209,9 @@ Agent Quality is a continuous discipline that must be integrated from the design
 - **Observability Foundation**: Visibility into the agent's "thought process" through three pillars:
   - Logs: timestamped structured entries of events, reasoning steps, tool calls (tells what happened).
   - Traces: narrative thread connecting logs to reveal causal relationships (explains why failures occurred, uses OpenTelemetry).
-  - Metrics: quantitative aggregated scores like P99 Latency, Tokens per Task, Factual Correctness.
+  - Metrics: quantitative aggregated scores applied to the 4 pillars of Agent Quality:
+    - System Metrics: Task Completion Rate, Tool usage frequency, P99 Latency, Error Rate, Tokens per Task, API cost per run.
+    - Quality Metrics: Factual Correctness Score, Trajectory Adherence, Helpfulness Ratings, Hallucination Rate.
 - **Outside-In Evaluation Hierarchy**: Sampling strategies avoid system overload by logging 100% of failures in Black Box evaluation (which triggers Glass Box analysis), while only sampling a few successful cases.
   - End-to-End (Black Box): assesses final output quality and task success against business KPIs.
   - Trajectory (Glass Box): diagnoses failures by analyzing execution path including LLM planning, tool selection/parameterization, and response interpretation.
