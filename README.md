@@ -130,7 +130,7 @@ This white paper introduces AI agents as autonomous systems that think, act, and
 
 **Key Points:**
 - **Core Architecture**: Agents consist of three essential components - the Model (brain for reasoning), Tools (hands for action), and Orchestration Layer (nervous system for coordination).
-- **5-Step Problem-Solving Process**: Get the Mission → Scan the Scene → Think It Through → Take Action → Observe and Iterate.
+- **5-Step Problem-Solving Process**: Get the Mission → Scan the Scene → Think It Through → Take Action → Observe and Iterate. This is the clasical 'Think, Act, Observe' loops we see mentioned in the industry.
 - **Taxonomy of Agentic Systems**: 5 levels of capability progression.
   - Level 0: Core Reasoning System (LM without tools, relies on training data only).
   - Level 1: Connected Problem-Solver (adds external tools for real-time data and actions).
