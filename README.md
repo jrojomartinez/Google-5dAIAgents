@@ -246,7 +246,7 @@ This white paper tackles the "last mile" production gap—moving agent prototype
 - **Agent2Agent (A2A) Protocol**: Open standard for agent collaboration. JSON Agent Cards advertise capabilities, security, endpoints for discovery. Higher abstraction than MCP. A2A handles complex agent conversations. MCP handles structured tool operations.
 - **Interoperability at Scale**: Central Tool Registries (MCP) and Agent Registries (A2A) enable discovery, governance, auditability. Build when managing thousands of tools/agents across teams, not by default. Benefits: developers avoid duplicates, security teams audit access, product owners understand capabilities.
 
-## Day Implementations
+## Python Implementations with Google ADK
 
 ### Day 1a: Basic Agent with Google Search
 
