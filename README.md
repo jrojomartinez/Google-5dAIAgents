@@ -86,10 +86,9 @@ Google-5dAIAgents/
 
 ### Method 1: Direct Python Execution
 
-Navigate to a specific day's folder and run the agent:
+Run the agents with python (using the folder location):
 ```bash
-cd Day_1a
-python3 agent.py
+python Day_1a/agent.py
 ```
 
 ### Method 2: ADK CLI
